@@ -27,7 +27,7 @@ function * testSaga () {
 The test looks like this:
 
 ```js
-const reduxSagaTest = require('redux-saga-test');
+const fromGenerator = require('redux-saga-test');
 
 test('saga', (t) => {
   const expect = fromGenerator(t, testSaga()) // <= pass your assert library with a `deepEqual` method.
