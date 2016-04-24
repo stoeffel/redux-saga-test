@@ -1,0 +1,47 @@
+{
+  "name": "redux-saga-test",
+  "version": "0.0.0",
+  "description": "My finest module",
+  "license": "MIT",
+  "repository": "stoeffel/redux-saga-test",
+  "author": {
+    "name": "Stoeffel",
+    "email": "schtoeffel@gmail.com",
+    "url": "stoeffel.github.io"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "standard && nyc ava",
+    "format": "standard-format -w",
+    "release-major": "xyz --repo git@github.com:stoeffel/redux-saga-test.git --increment major",
+    "release-minor": "xyz --repo git@github.com:stoeffel/redux-saga-test.git --increment minor",
+    "release-patch": "xyz --repo git@github.com:stoeffel/redux-saga-test.git --increment patch"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "redux",
+    "redux-saga",
+    "saga",
+    "testing"
+  ],
+  "dependencies": {
+    "lodash.curry": "^4.0.1"
+  },
+  "peerDependencies": {
+    "redux-saga": "0.x"
+  },
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "codecov": "^1.0.1",
+    "nyc": "^6.4.0",
+    "redux-saga": "^0.10.0",
+    "standard": "^6.0.8",
+    "standard-format": "^2.1.1",
+    "xo": "^0.14.0",
+    "xyz": "^0.5.0"
+  }
+}
