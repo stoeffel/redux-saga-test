@@ -1,20 +1,20 @@
 'use strict'
-const saga = require('redux-saga')
-const effects = require('redux-saga/effects')
+var saga = require('redux-saga')
+var effects = require('redux-saga/effects')
 
 module.exports = function fromGenerator (t, generator) {
-  const _next = function () {
-    const args = Array.prototype.slice.call(arguments)
+  var _next = function () {
+    var args = Array.prototype.slice.call(arguments)
     return generator.next.apply(generator, args)
   }
 
-  const _throw = function () {
-    const args = Array.prototype.slice.call(arguments)
+  var _throw = function () {
+    var args = Array.prototype.slice.call(arguments)
     return generator.throw.apply(generator, args)
   }
-  const _nextIs = function (fn, mock, effect) {
+  var _nextIs = function (fn, mock, effect) {
     return function () {
-      const args = Array.prototype.slice.call(arguments)
+      var args = Array.prototype.slice.call(arguments)
       return t.deepEqual(fn(mock).value, effect.apply(null, args))
     }
   }
@@ -42,11 +42,11 @@ module.exports = function fromGenerator (t, generator) {
     throwNext: wrap(_throw),
     next: wrap(_next),
     takeEvery: function () {
-      const args = Array.prototype.slice.call(arguments)
+      var args = Array.prototype.slice.call(arguments)
       return t.deepEqual(_next().value, saga.takeEvery.apply(null, args).next().value)
     },
     takeLatest: function () {
-      const args = Array.prototype.slice.call(arguments)
+      var args = Array.prototype.slice.call(arguments)
       return t.deepEqual(_next().value, saga.takeLatest.apply(null, args).next().value)
     }
   }
