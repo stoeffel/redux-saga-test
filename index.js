@@ -21,6 +21,7 @@ module.exports = function fromGenerator (t, generator) {
   function wrap (fn) {
     return function (mock) {
       return {
+        take: _nextIs(fn, mock, effects.take),
         put: _nextIs(fn, mock, effects.put),
         call: _nextIs(fn, mock, effects.call),
         cps: _nextIs(fn, mock, effects.cps),
