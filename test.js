@@ -1,7 +1,7 @@
 import test from 'ava'
 import fromGenerator from './'
 import { takeEvery, takeLatest } from 'redux-saga'
-import { put, call, cps, fork, spawn, join, cancel, select } from 'redux-saga/effects'
+import { take, put, call, cps, fork, spawn, join, cancel, select } from 'redux-saga/effects'
 import { createMockTask } from 'redux-saga/utils'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -18,6 +18,7 @@ const getFromState = function () {
 
 function * testSaga () {
   try {
+    yield take('ACTION')
     yield put({type: 'NEXTIS'})
     yield put({type: 'PUT'})
     yield call(delay, 0)
@@ -36,6 +37,7 @@ function * testSaga () {
 test('saga', (t) => {
   const expect = fromGenerator(t, testSaga())
 
+  expect.next().take('ACTION')
   expect.nextIs(put({type: 'NEXTIS'}))
   expect.next().put({type: 'PUT'})
   expect.next().call(delay, 0)
