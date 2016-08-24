@@ -49,6 +49,9 @@ module.exports = function fromGenerator (t, generator) {
     takeLatest: function () {
       var args = Array.prototype.slice.call(arguments)
       return t.deepEqual(_next().value, saga.takeLatest.apply(null, args).next().value)
+    },
+    done: function (value) {
+      return t.deepEqual(_next(), {done: true, value: value})
     }
   }
 }
