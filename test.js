@@ -72,3 +72,26 @@ test('takeLatest', (t) => {
 
   expect.takeLatest('TEST_ACTION', testSaga)
 })
+
+function * doneSaga () {
+  yield take('ACTION')
+}
+
+function * returnSaga () {
+  yield take('ACTION')
+  return 'return'
+}
+
+test('done', (t) => {
+  const expect = fromGenerator(t, doneSaga())
+
+  expect.next().take('ACTION')
+  expect.done()
+})
+
+test('done with return', (t) => {
+  const expect = fromGenerator(t, returnSaga())
+
+  expect.next().take('ACTION')
+  expect.done('return')
+})
