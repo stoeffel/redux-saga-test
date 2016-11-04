@@ -82,16 +82,28 @@ function * returnSaga () {
   return 'return'
 }
 
-test('done', (t) => {
+function * returnValue () {
+  const value = yield take('ACTION')
+  return value
+}
+
+test('returns nothing', (t) => {
   const expect = fromGenerator(t, doneSaga())
 
   expect.next().take('ACTION')
-  expect.done()
+  expect.next().returns()
 })
 
-test('done with return', (t) => {
+test('returns something', (t) => {
   const expect = fromGenerator(t, returnSaga())
 
   expect.next().take('ACTION')
-  expect.done('return')
+  expect.next().returns('return')
+})
+
+test('returns what was yielded', (t) => {
+  const expect = fromGenerator(t, returnValue())
+
+  expect.next().take('ACTION')
+  expect.next('yielded').returns('yielded')
 })
