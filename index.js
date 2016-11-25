@@ -18,6 +18,11 @@ module.exports = function fromGenerator (t, generator) {
       return t.deepEqual(fn(mock).value, effect.apply(null, args))
     }
   }
+  var _returns = function (fn, mock) {
+    return function (value) {
+      return t.deepEqual(fn(mock), {done: true, value: value})
+    }
+  }
   function wrap (fn) {
     return function (mock) {
       return {
@@ -31,7 +36,8 @@ module.exports = function fromGenerator (t, generator) {
         cancel: _nextIs(fn, mock, effects.cancel),
         select: _nextIs(fn, mock, effects.select),
         actionChannel: _nextIs(fn, mock, effects.actionChannel),
-        cancelled: _nextIs(fn, mock, effects.cancelled)
+        cancelled: _nextIs(fn, mock, effects.cancelled),
+        returns: _returns(fn, mock)
       }
     }
   }
@@ -51,7 +57,7 @@ module.exports = function fromGenerator (t, generator) {
       return t.deepEqual(_next().value, saga.takeLatest.apply(null, args).next().value)
     },
     done: function (value) {
-      return t.deepEqual(_next(), {done: true, value: value})
+      return this.next().returns(value)
     }
   }
 }

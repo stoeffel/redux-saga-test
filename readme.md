@@ -35,6 +35,7 @@ test('saga', (t) => {
   expect.next().put({type: 'FETCHING'})
   expect.next().call(loadData)
   expect.next(mockData).put({type: 'FETCHED', payload: mockData})
+  expect.next().returns()
 })
 ```
 
